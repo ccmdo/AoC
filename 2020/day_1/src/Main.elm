@@ -37,7 +37,7 @@ type alias Model =
 
 type alias Answer =
     { values : List Int
-    , sum : Int
+    , product : Int
     }
 
 
@@ -124,7 +124,7 @@ findOneFriend numbers target =
 
         x :: xs ->
             if List.member (target - x) xs then
-                Just { values = [ x, target - x ], sum = List.product [ x, target - x ] }
+                Just { values = [ x, target - x ], product = List.product [ x, target - x ] }
 
             else
                 findOneFriend xs target
@@ -144,7 +144,7 @@ findTwoFriends numbers target =
                 Just answer ->
                     Just
                         { values = x :: answer.values
-                        , sum = List.product [ x, answer.sum ]
+                        , product = List.product [ x, answer.product ]
                         }
 
                 Nothing ->
