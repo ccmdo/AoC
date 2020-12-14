@@ -169,7 +169,7 @@ view model =
     div []
         [ div [] [ text (Debug.toString model) ]
         , button [ onClick FileRequested ]
-            [ text "Upload file"
+            [ text "Load file"
             ]
         , case model.file of
             Loaded f ->
@@ -185,43 +185,28 @@ view model =
 
 
 renderFileContent : Model -> Html Msg
-renderFileContent { file, content } =
-    case file of
-        Loaded f ->
-            p [] [ text "Input:", div [] [ text content ] ]
-
-        _ ->
-            text ""
+renderFileContent { content } =
+    p [] [ text "Input:", div [] [ text content ] ]
 
 
 renderPartOne : Model -> Html Msg
-renderPartOne { file, content, answerOne } =
-    case file of
-        Loaded f ->
-            div []
-                [ h2 [] [ text "Part 1." ]
-                , p [] [ text "Find the two entries that sum to 2020; what do you get if you multiply them together?" ]
-                , button [ onClick (GetAnswerOne content) ] [ text "Get answer" ]
-                , Maybe.map renderAnswer answerOne |> Maybe.withDefault (text "")
-                ]
-
-        _ ->
-            text ""
+renderPartOne { content, answerOne } =
+    div []
+        [ h2 [] [ text "Part 1." ]
+        , p [] [ text "Find the two entries that sum to 2020; what do you get if you multiply them together?" ]
+        , button [ onClick (GetAnswerOne content) ] [ text "Get answer" ]
+        , Maybe.map renderAnswer answerOne |> Maybe.withDefault (text "")
+        ]
 
 
 renderPartTwo : Model -> Html Msg
-renderPartTwo { file, content, answerTwo } =
-    case file of
-        Loaded f ->
-            div []
-                [ h2 [] [ text "Part 2." ]
-                , p [] [ text "In your expense report, what is the product of the three entries that sum to 2020?" ]
-                , button [ onClick (GetAnswerTwo content) ] [ text "Get answer" ]
-                , Maybe.map renderAnswer answerTwo |> Maybe.withDefault (text "")
-                ]
-
-        _ ->
-            text ""
+renderPartTwo { content, answerTwo } =
+    div []
+        [ h2 [] [ text "Part 2." ]
+        , p [] [ text "In your expense report, what is the product of the three entries that sum to 2020?" ]
+        , button [ onClick (GetAnswerTwo content) ] [ text "Get answer" ]
+        , Maybe.map renderAnswer answerTwo |> Maybe.withDefault (text "")
+        ]
 
 
 renderAnswer : Answer -> Html Msg
